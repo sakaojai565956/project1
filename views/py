@@ -1,0 +1,6 @@
+@app.route('/login', methods=['POST'])
+def login():
+  # Get the ID token from the request.
+  id_token = request.form.get('id_token')
+
+  # Verify the ID token with the Google API

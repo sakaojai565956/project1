@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Attendance Checker</title>
+    <script>
+      function checkAttendance() {
+        var name = document.getElementById('name').value;
+        var isChecked = document.getElementById('checkbox').checked;
+        if (name == '') {
+          alert('Please enter your name');
+          return false;
+        }
+        else {
+          if (isChecked) {
+            alert('Welcome ' + name + ', you have checked in');
+          }
+          else {
+            alert('Goodbye ' + name + ', you have checked out');
+          }
+          return true;
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <form>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name">
+      <br>
+      <input type="checkbox" id="checkbox" name="attendance" value="present">
+      <label for="checkbox">I am present</label>
+      <br>
+      <input type="checkbox" id="checkbox" name="attendance" value="present">
+      <label for="checkbox">I don't come to study</label>
+      <br>
+      <input type="submit" value="Submit" onclick="return checkAttendance()">
+    </form>
+  </body>
+</html>

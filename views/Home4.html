@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>To-do List</title>
+    <style>
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      li {
+        padding: 10px;
+        border: 1px solid gray;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+      }
+      .done {
+        text-decoration: line-through;
+        opacity: 0.5;
+      }
+    </style>
+    <script>
+      function addTask() {
+        var input = document.getElementById("task-input");
+        if (input.value.trim() === "") {
+          alert("Please enter a task");
+          return false;
+        }
+        var ul = document.getElementById("task-list");
+        var li = document.createElement("li");
+        li.innerHTML = input.value;
+        li.addEventListener("click", function() {
+          li.classList.toggle("done");
+        });
+        var deleteBtn = document.createElement("button");
+        deleteBtn.innerHTML = "X";
+        deleteBtn.addEventListener("click", function() {
+          ul.removeChild(li);
+        });
+        li.appendChild(deleteBtn);
+        ul.appendChild(li);
+        input.value = "";
+      }
+
+      function sendEmail() {
+        var tasks = document.querySelectorAll("#task-list li");
+        var dueTasks = [];
+        tasks.forEach(function(task) {
+          if (!task.classList.contains("done")) {
+            dueTasks.push(task.innerHTML);
+          }
+        });
+        if (dueTasks.length > 0) {
+          var subject = "To-do List: " + dueTasks.length + " task(s) due tomorrow";
+          var body = "The following tasks are due tomorrow:\n\n";
+          dueTasks.forEach(function(task) {
+            body += "- " + task + "\n";
+          });
+          window.location.href = "https://mail.google.com/mail/u/0/#inbox=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h1>To-do List</h1>
+    <input type="text" id="task-input">
+    <button onclick="addTask()">Add Task</button>
+    <button onclick="sendEmail()">Send Email</button>
+    <ul id="task-list">
+    </ul>
+  </body>
+</html>
+
